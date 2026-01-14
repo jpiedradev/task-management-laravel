@@ -20,10 +20,35 @@
         .badge-pendiente { background: #ffc107; }
         .badge-en_progreso { background: #17a2b8; color: white; }
         .badge-completada { background: #28a745; color: white; }
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .user-info p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .user-info strong {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
 <h1>📋 Gestión de Tareas</h1>
+
+<!-- NUEVO: Info del usuario y logout -->
+<div class="user-info">
+    <p>Bienvenido, <strong>{{ auth()->user()->name }}</strong> ({{ auth()->user()->email }})</p>
+    <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+        @csrf
+        <button type="submit" class="btn btn-danger">🚪 Cerrar Sesión</button>
+    </form>
+</div>
 
 @if(session('success'))
     <div class="alert">{{ session('success') }}</div>

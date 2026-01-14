@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relación: un usuario tiene muchas tareas
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
