@@ -8,11 +8,52 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     // Mostrar todas las tareas
-    public function index()
+    public function index(Request $request)
     {
         //$tasks = Task::all();
-        $tasks = auth()->user()->tasks;
-        return view('tasks.index', compact('tasks'));
+        // Inicia la consulta con las tareas del usuario
+        $query = auth()->user()->tasks();
+
+        // Búsqueda por título
+        if ($request->has('search') && $request->search != '') {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // Filtro por estado
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // NUEVO: Ordenamiento
+        $orderBy = $request->get('order', 'latest'); // Por defecto: más recientes
+
+        switch ($orderBy) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'title_asc':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'title_desc':
+                $query->orderBy('title', 'desc');
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+
+        // Obtener las tareas
+        $tasks = $query->get();
+
+        // NUEVO: Calcular estadísticas
+        $stats = [
+            'total' => auth()->user()->tasks()->count(),
+            'pendientes' => auth()->user()->tasks()->where('status', 'pendiente')->count(),
+            'en_progreso' => auth()->user()->tasks()->where('status', 'en_progreso')->count(),
+            'completadas' => auth()->user()->tasks()->where('status', 'completada')->count(),
+        ];
+
+        return view('tasks.index', compact('tasks','stats'));
     }
 
     // Mostrar formulario para crear
