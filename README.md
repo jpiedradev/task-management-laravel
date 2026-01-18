@@ -1,217 +1,213 @@
-# 📋 Sistema de Gestión de Tareas
+# 📋 Task Manager - Sistema de Gestión de Tareas
 
-Sistema CRUD completo para gestionar tareas desarrollado con Laravel. Cada usuario puede crear, editar y eliminar sus propias tareas con un sistema de autenticación robusto.
+Sistema CRUD completo para gestionar tareas con interfaz moderna desarrollado con Laravel, Vue 3, Inertia.js y PrimeVue.
 
-## ✨ Características Principales
+## ✨ Características
+
+### 🎨 Interfaz Moderna
+- ✅ SPA (Single Page Application) con Vue 3 + Inertia.js
+- ✅ Componentes UI profesionales con PrimeVue
+- ✅ Diseño responsive y moderno
+- ✅ Modales para crear/editar (sin cambiar de página)
+- ✅ Notificaciones toast elegantes
+- ✅ Confirmaciones antes de eliminar
 
 ### 🔐 Autenticación
-- ✅ Registro de usuarios
-- ✅ Inicio de sesión
-- ✅ Cierre de sesión
-- ✅ Protección de rutas con middleware
-- ✅ Cada usuario solo ve y gestiona sus propias tareas
+- ✅ Sistema completo con Laravel Breeze
+- ✅ Login y registro con diseño personalizado
+- ✅ Protección de rutas
+- ✅ Cada usuario gestiona solo sus tareas
 
 ### 📝 Gestión de Tareas
-- ✅ Crear tareas
-- ✏️ Editar tareas
-- 🗑️ Eliminar tareas
-- 📊 Ver lista de tareas
-- 🎨 Estados: Pendiente, En Progreso, Completada
-- ✔️ Validaciones de formularios
-- 🔒 Validación de permisos (solo el dueño puede editar/eliminar)
+- ✅ CRUD completo (Crear, Leer, Actualizar, Eliminar)
+- ✅ Estados: Pendiente, En Progreso, Completada
+- ✅ Modales para crear/editar tareas
+- ✅ Validaciones en tiempo real
+- ✅ Tabla con paginación y ordenamiento
 
 ### 🔍 Búsqueda y Filtros
-- 🔎 Búsqueda por título
-- 📊 Filtro por estado
-- 🔽 Ordenamiento múltiple:
-  - Más recientes
-  - Más antiguos
-  - Alfabético (A-Z)
-  - Alfabético (Z-A)
-- 🧹 Botón para limpiar filtros
+- ✅ Búsqueda por título
+- ✅ Filtro por estado
+- ✅ Ordenamiento (recientes, antiguos, alfabético)
+- ✅ Limpieza de filtros con un clic
 
-### 📈 Dashboard y Estadísticas
-- 📊 Total de tareas
-- ⏳ Tareas pendientes
-- 🔄 Tareas en progreso
-- ✅ Tareas completadas
-- 🎨 Tarjetas visuales con gradientes
+### 📊 Dashboard
+- ✅ Estadísticas en tiempo real
+- ✅ Total de tareas
+- ✅ Contadores por estado
+- ✅ Tarjetas visuales con colores
 
-## 🛠️ Tecnologías Utilizadas
+### 🚀 API REST
+- ✅ Endpoints completos para todas las operaciones
+- ✅ Autenticación con Laravel Sanctum
+- ✅ Respuestas JSON estandarizadas
+- ✅ Búsqueda y filtros en API
+- ✅ Documentación de endpoints
 
-- **Backend:** PHP 8.x
-- **Framework:** Laravel 11
-- **Base de datos:** MySQL
-- **Autenticación:** Laravel Breeze
-- **Frontend:** Blade Templates
-- **Estilos:** HTML/CSS
-- **Control de versiones:** Git
+## 🛠️ Stack Tecnológico
+
+### Backend
+- PHP 8.x
+- Laravel 11
+- MySQL
+- Laravel Sanctum (API)
+- Laravel Breeze (Auth)
+
+### Frontend
+- Vue 3 (Composition API)
+- Inertia.js
+- PrimeVue (UI Components)
+- Vite
 
 ## 📦 Instalación
 
-### Requisitos previos
+### Requisitos
 - PHP >= 8.1
 - Composer
+- Node.js >= 16
 - MySQL
-- Node.js y NPM
 
-### Pasos de instalación
-
-1. **Clona el repositorio:**
+### Pasos
 ```bash
+# 1. Clonar repositorio
 git clone https://github.com/jpiedradev/task-management-laravel.git
 cd task-management-laravel
-```
 
-2. **Instala las dependencias de PHP:**
-```bash
+# 2. Instalar dependencias
 composer install
-```
-
-3. **Instala las dependencias de Node:**
-```bash
 npm install
-```
 
-4. **Copia el archivo de configuración:**
-```bash
+# 3. Configurar entorno
 cp .env.example .env
-```
-
-5. **Genera la key de la aplicación:**
-```bash
 php artisan key:generate
-```
 
-6. **Configura tu base de datos en el archivo `.env`:**
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
+# 4. Configurar base de datos en .env
 DB_DATABASE=task_app
 DB_USERNAME=root
 DB_PASSWORD=
-```
 
-7. **Crea la base de datos:**
-- Abre phpMyAdmin o tu cliente MySQL
-- Crea una base de datos llamada `task_app`
-
-8. **Ejecuta las migraciones:**
-```bash
+# 5. Migrar base de datos
 php artisan migrate
-```
 
-9. **Compila los assets:**
-```bash
+# 6. Iniciar servidores
+php artisan serve
 npm run dev
 ```
 
-10. **Inicia el servidor:**
+Abre: `http://localhost:8000`
+
+## 🎯 Uso
+
+### Aplicación Web
+1. Regístrate o inicia sesión
+2. Crea tareas usando el botón "Nueva Tarea"
+3. Edita haciendo clic en el ícono de lápiz
+4. Elimina con el ícono de basura
+5. Usa filtros para organizar tus tareas
+
+### API REST
+
+#### Autenticación
 ```bash
-php artisan serve
+# Login
+POST /api/login
+Body: { "email": "user@example.com", "password": "password" }
+Response: { "token": "..." }
+
+# Usar token
+Authorization: Bearer {token}
 ```
 
-11. **Abre tu navegador en:** `http://localhost:8000`
-
-## 🎮 Uso
-
-### Primeros pasos
-
-1. **Regístrate** en la aplicación
-2. **Inicia sesión** con tus credenciales
-3. **Crea tu primera tarea**
-4. **Gestiona tus tareas** (editar, eliminar, cambiar estado)
-5. **Usa los filtros** para organizar tus tareas
-
-### Estructura de la aplicación
-```
-/login          → Iniciar sesión
-/register       → Registrarse
-/tasks          → Lista de tareas (requiere autenticación)
-/tasks/create   → Crear nueva tarea
-/tasks/{id}/edit → Editar tarea
+#### Endpoints
+```bash
+GET    /api/tasks              # Listar tareas
+POST   /api/tasks              # Crear tarea
+GET    /api/tasks/{id}         # Ver tarea
+PUT    /api/tasks/{id}         # Actualizar tarea
+DELETE /api/tasks/{id}         # Eliminar tarea
 ```
 
-## 🗂️ Estructura del Proyecto
+#### Ejemplo con filtros
+```bash
+GET /api/tasks?search=compras&status=pendiente&order=latest
 ```
-task-api/
+
+## 📁 Estructura
+```
 ├── app/
-│   ├── Http/
-│   │   └── Controllers/
-│   │       ├── Auth/              # Controladores de autenticación
-│   │       └── TaskController.php # Controlador de tareas
-│   └── Models/
-│       ├── User.php               # Modelo de usuario
-│       └── Task.php               # Modelo de tarea
-├── database/
-│   └── migrations/                # Migraciones de base de datos
+│   ├── Http/Controllers/
+│   │   ├── Api/           # Controladores API
+│   │   └── Auth/          # Controladores Auth
+│   └── Models/            # Modelos Eloquent
 ├── resources/
+│   ├── js/
+│   │   ├── Pages/         # Páginas Vue
+│   │   ├── Layouts/       # Layouts
+│   │   └── app.js         # Entry point
 │   └── views/
-│       ├── auth/                  # Vistas de autenticación
-│       └── tasks/                 # Vistas de tareas
-│           ├── index.blade.php    # Lista de tareas
-│           ├── create.blade.php   # Crear tarea
-│           └── edit.blade.php     # Editar tarea
+│       └── app.blade.php  # Layout base
 └── routes/
-    ├── web.php                    # Rutas web
-    └── auth.php                   # Rutas de autenticación
+    ├── web.php            # Rutas web
+    └── api.php            # Rutas API
 ```
 
-## 🔐 Características de Seguridad
+## 🔒 Seguridad
 
-- ✅ Autenticación con Laravel Breeze
-- ✅ Contraseñas hasheadas con bcrypt
-- ✅ Protección CSRF en formularios
-- ✅ Middleware de autenticación en rutas
-- ✅ Validación de permisos (usuarios solo acceden a sus tareas)
-- ✅ Validación de datos en servidor
-- ✅ Protección contra SQL injection (Eloquent ORM)
+- ✅ Autenticación con sesiones (Web) y tokens (API)
+- ✅ Contraseñas hasheadas
+- ✅ Protección CSRF
+- ✅ Middleware de autenticación
+- ✅ Validación de permisos por usuario
+- ✅ Sanitización de inputs
+- ✅ SQL injection prevention (Eloquent)
 
-## 🚀 Próximas Características (Roadmap)
+## 🚀 Próximas Características
 
-- [ ] API REST
-- [ ] Integración con React/Vue
-- [ ] Notificaciones por email
 - [ ] Fechas de vencimiento
-- [ ] Etiquetas y categorías
+- [ ] Prioridades de tareas
+- [ ] Categorías/Etiquetas
+- [ ] Archivos adjuntos
+- [ ] Notificaciones por email
 - [ ] Colaboración entre usuarios
-- [ ] Exportar tareas a PDF/Excel
-- [ ] Modo oscuro
+- [ ] Exportar a PDF/Excel
+
+## 👨‍💻 Desarrollo
+
+### Comandos útiles
+```bash
+# Desarrollo
+npm run dev              # Vite dev server
+php artisan serve        # Laravel server
+
+# Producción
+npm run build            # Build para producción
+
+# Base de datos
+php artisan migrate:fresh    # Resetear BD
+php artisan migrate:refresh  # Rehacer migraciones
+
+# Cache
+php artisan optimize:clear   # Limpiar cache
+```
 
 ## 📸 Screenshots
 
-### Dashboard con estadísticas
-<img width="674" height="596" alt="image" src="https://github.com/user-attachments/assets/8ddbe583-9ef7-477c-932f-679cbdd6e4c0" />
+### Dashboard
+![Dashboard](https://github.com/user-attachments/assets/8ddbe583-9ef7-477c-932f-679cbdd6e4c0)
 
-### Formulario de creación
-<img width="538" height="325" alt="image" src="https://github.com/user-attachments/assets/dae795ac-93f8-44b8-82bf-1b24a2a7292d" />
-
-## 🧪 Testing
-
-Para ejecutar las pruebas:
-```bash
-php artisan test
-```
+### Modal de Creación
+![Modal](https://github.com/user-attachments/assets/dae795ac-93f8-44b8-82bf-1b24a2a7292d)
 
 ## 👨‍💻 Autor
 
 **Johan Piedra**
 - GitHub: [@jpiedradev](https://github.com/jpiedradev)
-- Proyecto: [Task Management Laravel](https://github.com/jpiedradev/task-management-laravel)
+- Email: jpiedra.dev@gmail.com
 
 ## 📄 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la [MIT License](LICENSE).
-
-## 🙏 Agradecimientos
-
-- Laravel Framework
-- Laravel Breeze
-- Comunidad de Laravel
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
-⭐ Si te gustó este proyecto, dale una estrella en GitHub
-
-📧 Para preguntas o sugerencias, abre un issue en el repositorio
+⭐ **Si te gustó este proyecto, dale una estrella en GitHub**
