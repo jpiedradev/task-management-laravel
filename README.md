@@ -192,11 +192,17 @@ php artisan optimize:clear   # Limpiar cache
 
 ## 📸 Screenshots
 
-### Dashboard
-![Dashboard](https://github.com/user-attachments/assets/8ddbe583-9ef7-477c-932f-679cbdd6e4c0)
+### Login
+<img width="1077" height="826" alt="image" src="https://github.com/user-attachments/assets/be28fed8-3412-4d0d-847a-11bbed634467" />
 
-### Modal de Creación
-![Modal](https://github.com/user-attachments/assets/dae795ac-93f8-44b8-82bf-1b24a2a7292d)
+### Tasks
+<img width="1897" height="835" alt="image" src="https://github.com/user-attachments/assets/7701386b-25ec-4d13-86ec-9f8bcb62d038" />
+
+### Modal Nueva Tarea
+<img width="997" height="635" alt="image" src="https://github.com/user-attachments/assets/3678ebc3-99a4-4a51-ba28-64de28919393" />
+
+### Modal Editar Tarea
+<img width="889" height="691" alt="image" src="https://github.com/user-attachments/assets/9bc6a8bc-5453-4a0c-b308-8e0d3c1792cf" />
 
 ## 👨‍💻 Autor
 
