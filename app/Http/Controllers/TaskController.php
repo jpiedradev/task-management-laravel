@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TaskController extends Controller
 {
-    // Mostrar todas las tareas
     public function index(Request $request)
     {
-        //$tasks = Task::all();
-        // Inicia la consulta con las tareas del usuario
         $query = auth()->user()->tasks();
 
         // Búsqueda por título
@@ -24,9 +22,8 @@ class TaskController extends Controller
             $query->where('status', $request->status);
         }
 
-        // NUEVO: Ordenamiento
-        $orderBy = $request->get('order', 'latest'); // Por defecto: más recientes
-
+        // Ordenamiento
+        $orderBy = $request->get('order', 'latest');
         switch ($orderBy) {
             case 'oldest':
                 $query->oldest();
@@ -42,10 +39,8 @@ class TaskController extends Controller
                 break;
         }
 
-        // Obtener las tareas
         $tasks = $query->get();
 
-        // NUEVO: Calcular estadísticas
         $stats = [
             'total' => auth()->user()->tasks()->count(),
             'pendientes' => auth()->user()->tasks()->where('status', 'pendiente')->count(),
@@ -53,16 +48,21 @@ class TaskController extends Controller
             'completadas' => auth()->user()->tasks()->where('status', 'completada')->count(),
         ];
 
-        return view('tasks.index', compact('tasks','stats'));
+        // ❌ ANTES (Blade):
+        // return view('tasks.index', compact('tasks', 'stats'));
+
+        // ✅ AHORA (Inertia):
+        return Inertia::render('Tasks/Index', [
+            'tasks' => $tasks,
+            'stats' => $stats,
+            'filters' => [
+                'search' => $request->search,
+                'status' => $request->status,
+                'order' => $orderBy,
+            ]
+        ]);
     }
 
-    // Mostrar formulario para crear
-    public function create()
-    {
-        return view('tasks.create');
-    }
-
-    // Guardar nueva tarea
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -71,29 +71,19 @@ class TaskController extends Controller
             'status' => 'required|in:pendiente,en_progreso,completada'
         ]);
 
-        // Agrega el user_id del usuario logueado
         $validated['user_id'] = auth()->id();
 
         Task::create($validated);
 
+        // ❌ ANTES:
+        // return redirect()->route('tasks.index')->with('success', '¡Tarea creada exitosamente!');
+
+        // ✅ AHORA (Inertia maneja el redirect automáticamente):
         return redirect()->route('tasks.index')->with('success', '¡Tarea creada exitosamente!');
     }
 
-    // Mostrar formulario para editar
-    public function edit(Task $task)
-    {
-        // Protección: solo el usuario dueño puede editar
-        if ($task->user_id !== auth()->id()) {
-            abort(403, 'No tienes permiso para editar esta tarea');
-        }
-
-        return view('tasks.edit', compact('task'));
-    }
-
-    // Actualizar tarea
     public function update(Request $request, Task $task)
     {
-        // Protección: solo el dueño puede actualizar
         if ($task->user_id !== auth()->id()) {
             abort(403, 'No tienes permiso para actualizar esta tarea');
         }
@@ -109,10 +99,8 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', '¡Tarea actualizada exitosamente!');
     }
 
-    // Eliminar tarea
     public function destroy(Task $task)
     {
-        // Protección: solo el dueño puede eliminar
         if ($task->user_id !== auth()->id()) {
             abort(403, 'No tienes permiso para eliminar esta tarea');
         }
